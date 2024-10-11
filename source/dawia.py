@@ -1,41 +1,48 @@
-from mistralai import Mistral
+import streamlit as st
+import shelve
+import base64
 import speech_recognition as sr
-import edge_tts
-import os
+from mistralai import Mistral
+"""Dawia's backend functions."""
 
-"""Backend for Dawia"""
-
-
-voice = "en-GB-SoniaNeural"
-model = "mistral-tiny"
+USER_AVATAR = "👤"
+DAWIA_AVATAR = "💭"
 
 def init_mistral(api_key):
-    client = Mistral(api_key=api_key)
-    return client
-
-def get_response(text, client):
-    response = client.chat.complete(
-        model=model,
-        messages=[{"role": "user", "content": text}],
-    )
-    return response.choices[0].message.content
-
-def text_to_voice(text):
-    output_file = ".tmp.mp3"
-    communicate = edge_tts.Communicate(text, voice)
-    with open(output_file, "wb") as file:
-        for chunk in communicate.stream_sync():
-            if chunk["type"] == "audio":
-                file.write(chunk["data"])
-    return output_file
+    """Initialize the Mistral client."""
+    return Mistral(api_key=api_key)
 
 def transcribe_audio(audio_file_path):
+    """Transcribe the audio file to text."""
     r = sr.Recognizer()
     with sr.AudioFile(audio_file_path) as srs:
         audio_data = r.record(srs)
     try:
-        return r.recognize_google(audio_data)
+        txt = r.recognize_google(audio_data)
+        return txt
     except sr.UnknownValueError:
         return "Sorry, I could not understand what you said."
-    except sr.RequestError:
+    except sr.RequestError as e:
         return "Sorry, I could not process your request at the moment."
+
+def img_to_base64(file_path):
+    """Convert an image to base64 string to display it using HTML."""
+    with open(file_path, "rb") as img:
+        b64_string = base64.b64encode(img.read()).decode("utf-8")
+    return b64_string
+
+def get_response(client, messages):
+    """Get the response from Mistral API."""
+    response = client.chat.complete(
+        model=st.session_state["mistral_model"],
+        messages=messages
+    )
+    return response.choices[0].message.content
+
+def load_chat_history():
+    with shelve.open("chat_history") as db:
+        return db.get("messages", [])
+
+def save_chat_history(messages):
+    with shelve.open("chat_history") as db:
+        db["messages"] = messages

@@ -1,33 +1,65 @@
 import streamlit as st
-import os
-from source.dawia import init_mistral, get_response, text_to_voice
-from playsound import playsound
-"""frontend for Dawia"""
-
+from audio_recorder_streamlit import audio_recorder
+from source.dawia import (
+    init_mistral,
+    transcribe_audio,
+    img_to_base64,
+    get_response,
+    load_chat_history,
+    save_chat_history,
+    USER_AVATAR,
+    BOT_AVATAR
+)
 
 with open("./source/api_key", "r") as file:
     api_key = file.read().strip()
 
-st.title("Dawia Voice Assistant")
+ghub_logo = img_to_base64("./assets/img/git.png")
+dawia_logo = img_to_base64("./assets/img/dawia.png")
+user_logo = img_to_base64("./assets/img/User.png")
 
-user_input = st.text_area("Ask Dawia:", "What's the distance between Earth and Mars?")
 
-if st.button("Get Response"):
-    with st.spinner("Initializing Dawia..."):
-        client = init_mistral(api_key)
+st.title("Dawia, Your personal voice assistant.")
 
-    if client:
-        with st.spinner("Getting response..."):
-            response_text = get_response(user_input, client)
-        
-        with st.spinner("Converting response to voice..."):
-            audio_file = text_to_voice(response_text)
-        
-        if audio_file:
-            playsound(audio_file)
-            st.success("Dawia's Response: " + response_text)
-            os.remove(audio_file)
-        else:
-            st.error("Failed to generate voice")
-    else:
-        st.error("Failed to initialize LLM.")
+client = init_mistral(api_key)
+
+if "mistral_model" not in st.session_state:
+    st.session_state["mistral_model"] = "mistral-tiny"
+
+if "messages" not in st.session_state:
+    st.session_state.messages = load_chat_history()
+
+with st.sidebar:
+    if st.button("Delete Chat History"):
+        st.session_state.messages = []
+        save_chat_history([])
+
+chat_container = st.container()
+with chat_container:
+    for message in st.session_state.messages:
+        avatar = USER_AVATAR if message["role"] == "user" else BOT_AVATAR
+        with st.chat_message(message["role"], avatar=avatar):
+            st.markdown(message["content"])
+
+speech_data = audio_recorder(text="", icon_size="1x", icon_name="bolt", neutral_color="#557C56", recording_color="#ff4b4b")
+
+if prompt := st.chat_input("How can I help?"):
+    with chat_container:
+        st.session_state.messages.append({"role": "user", "content": prompt})
+        with st.chat_message("user", avatar=USER_AVATAR):
+            st.markdown(prompt)
+
+        with st.chat_message("assistant", avatar=BOT_AVATAR):
+            message_placeholder = st.empty()
+
+            messages_for_mistral = st.session_state.messages + [
+                {"role": "user", "content": prompt},
+                {"role": "system", "content": "You are Dawia, a helpful and friendly virtual assistant. Always provide clear, concise, and polite responses."}
+            ]
+
+            full_response = get_response(client, messages_for_mistral)
+            message_placeholder.markdown(full_response)
+
+    st.session_state.messages.append({"role": "assistant", "content": full_response})
+
+save_chat_history(st.session_state.messages)
