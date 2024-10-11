@@ -8,7 +8,7 @@ from source.dawia import (
     load_chat_history,
     save_chat_history,
     USER_AVATAR,
-    BOT_AVATAR
+    DAWIA_AVATAR
 )
 
 with open("./source/api_key", "r") as file:
@@ -16,7 +16,6 @@ with open("./source/api_key", "r") as file:
 
 ghub_logo = img_to_base64("./assets/img/git.png")
 dawia_logo = img_to_base64("./assets/img/dawia.png")
-user_logo = img_to_base64("./assets/img/User.png")
 
 
 st.title("Dawia, Your personal voice assistant.")
@@ -37,7 +36,7 @@ with st.sidebar:
 chat_container = st.container()
 with chat_container:
     for message in st.session_state.messages:
-        avatar = USER_AVATAR if message["role"] == "user" else BOT_AVATAR
+        avatar = USER_AVATAR if message["role"] == "user" else DAWIA_AVATAR
         with st.chat_message(message["role"], avatar=avatar):
             st.markdown(message["content"])
 
@@ -49,7 +48,7 @@ if prompt := st.chat_input("How can I help?"):
         with st.chat_message("user", avatar=USER_AVATAR):
             st.markdown(prompt)
 
-        with st.chat_message("assistant", avatar=BOT_AVATAR):
+        with st.chat_message("assistant", avatar=DAWIA_AVATAR):
             message_placeholder = st.empty()
 
             messages_for_mistral = st.session_state.messages + [
