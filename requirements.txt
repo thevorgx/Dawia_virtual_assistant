@@ -3,3 +3,4 @@ mistralai
 speechrecognition
 edge-tts
 playsound
+audio_recorder_streamlit
