@@ -1,8 +1,10 @@
 import streamlit as st
-import shelve
+import os
+import pickle
 import base64
 import speech_recognition as sr
 from mistralai import Mistral
+from time import sleep
 """Dawia's backend functions."""
 
 USER_AVATAR = "👤"
@@ -40,9 +42,18 @@ def get_response(client, messages):
     return response.choices[0].message.content
 
 def load_chat_history():
-    with shelve.open("chat_history") as db:
-        return db.get("messages", [])
+    if os.path.exists("chat_history.pkl"):
+        with open("chat_history.pkl", 'rb') as f:
+            return pickle.load(f)
+    else:
+        return []
 
 def save_chat_history(messages):
-    with shelve.open("chat_history") as db:
-        db["messages"] = messages
+    with open('chat_history.pkl', 'wb') as f:
+        pickle.dump(messages, f)
+
+def stream_response(full_response):
+    """Stream the full response in chunks."""
+    for chunk in full_response:
+        yield chunk
+        sleep(0.1)

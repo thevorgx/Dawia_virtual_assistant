@@ -7,6 +7,7 @@ from source.dawia import (
     get_response,
     load_chat_history,
     save_chat_history,
+    stream_response,
     USER_AVATAR,
     DAWIA_AVATAR
 )
@@ -57,7 +58,7 @@ if prompt := st.chat_input("How can I help?"):
             ]
 
             full_response = get_response(client, messages_for_mistral)
-            message_placeholder.markdown(full_response)
+            message_placeholder.write_stream(stream_response(full_response))
 
     st.session_state.messages.append({"role": "assistant", "content": full_response})
 
