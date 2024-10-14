@@ -8,6 +8,7 @@ from source.dawia import (
     load_chat_history,
     save_chat_history,
     stream_response,
+    what_prompt,
     USER_AVATAR,
     DAWIA_AVATAR
 )
@@ -29,21 +30,29 @@ if "mistral_model" not in st.session_state:
 if "messages" not in st.session_state:
     st.session_state.messages = load_chat_history()
 
+
+chat_container = st.container(height=800, border=False)
+chat = st.chat_input("How can I help?")
+audio = audio_recorder(text="", icon_size="1x", icon_name="bolt",neutral_color="#557C56" , recording_color="#ff4b4b")
+# sidebar---------------------------#
 with st.sidebar:
     if st.button("Delete Chat History"):
         st.session_state.messages = []
         save_chat_history([])
+        prompt = None
+        audio = None
 
-chat_container = st.container()
 with chat_container:
     for message in st.session_state.messages:
-        avatar = USER_AVATAR if message["role"] == "user" else DAWIA_AVATAR
+        if message["role"] == "user":
+            avatar = USER_AVATAR
+        else:
+            avatar = DAWIA_AVATAR
         with st.chat_message(message["role"], avatar=avatar):
             st.markdown(message["content"])
 
-speech_data = audio_recorder(text="", icon_size="1x", icon_name="bolt", neutral_color="#557C56", recording_color="#ff4b4b")
-
-if prompt := st.chat_input("How can I help?"):
+prompt = what_prompt(chat, audio)
+if prompt:
     with chat_container:
         st.session_state.messages.append({"role": "user", "content": prompt})
         with st.chat_message("user", avatar=USER_AVATAR):
@@ -51,15 +60,12 @@ if prompt := st.chat_input("How can I help?"):
 
         with st.chat_message("assistant", avatar=DAWIA_AVATAR):
             message_placeholder = st.empty()
-
-            messages_for_mistral = st.session_state.messages + [
-                {"role": "user", "content": prompt},
-                {"role": "system", "content": "You are Dawia, a helpful and friendly virtual assistant. Always provide clear, concise, and polite responses."}
-            ]
+            
+            messages_for_mistral = st.session_state.messages + [{"role": "user", "content": prompt}] + [{"role": "system", "content": "You are Dawia, if i ask you whats your name you will say Dawia not mistral, you're a helpful and friendly virtual assistant. Always provide clear, concise, and polite responses."}]
 
             full_response = get_response(client, messages_for_mistral)
-            message_placeholder.write_stream(stream_response(full_response))
-
+            message_placeholder.markdown(full_response)
+        
     st.session_state.messages.append({"role": "assistant", "content": full_response})
 
 save_chat_history(st.session_state.messages)

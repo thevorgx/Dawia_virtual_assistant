@@ -41,6 +41,17 @@ def get_response(client, messages):
     )
     return response.choices[0].message.content
 
+def what_prompt(chat, audio):
+    if chat:
+        return chat
+    
+    elif audio:
+        req_audio_file = ".tmp_query_req.mp3"
+        with open(req_audio_file, "wb") as file:
+            file.write(audio)
+        return transcribe_audio(req_audio_file)
+    return None
+
 def load_chat_history():
     if os.path.exists("chat_history.pkl"):
         with open("chat_history.pkl", 'rb') as f:
