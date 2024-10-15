@@ -5,6 +5,8 @@ import base64
 import speech_recognition as sr
 from mistralai import Mistral
 from time import sleep
+import edge_tts
+from playsound import playsound
 """Dawia's backend functions."""
 
 USER_AVATAR = "👤"
@@ -41,6 +43,28 @@ def get_response(client, messages):
     )
     return response.choices[0].message.content
 
+def text_to_voice(text, voice):
+    """Convert text to voice."""
+    output_file = ".tmp_query_res.mp3"
+    communicate = edge_tts.Communicate(text, voice)
+    with open(output_file, "wb") as file:
+        for chunk in communicate.stream_sync():
+            if chunk["type"] == "audio":
+                file.write(chunk["data"])
+    playsound(output_file)
+    os.remove(output_file)
+
+def what_prompt(chat, audio):
+    if chat:
+        return chat
+
+    elif audio:
+        req_audio_file = ".tmp_query_req.mp3"
+        with open(req_audio_file, "wb") as file:
+            file.write(audio)
+        return transcribe_audio(req_audio_file)
+    return None
+
 def load_chat_history():
     if os.path.exists("chat_history.pkl"):
         with open("chat_history.pkl", 'rb') as f:
@@ -56,4 +80,4 @@ def stream_response(full_response):
     """Stream the full response in chunks."""
     for chunk in full_response:
         yield chunk
-        sleep(0.1)
+        sleep(0.03)
