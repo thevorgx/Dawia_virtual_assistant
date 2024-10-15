@@ -28,6 +28,7 @@ if "mistral_model" not in st.session_state:
 if "messages" not in st.session_state:
     st.session_state.messages = load_chat_history()
 
+
 chat_container = st.container(height=800, border=False)
 chat = st.chat_input("How can I help?")
 audio = audio_recorder(text="", icon_size="1x", icon_name="bolt",neutral_color="#557C56" , recording_color="#ff4b4b")
@@ -64,13 +65,22 @@ if prompt:
         with st.chat_message("assistant", avatar=DAWIA_AVATAR):
             message_placeholder = st.empty()
 
+
             messages_for_mistral = st.session_state.messages + [{"role": "user", "content": prompt}] + [{"role": "system", "content": "You are Dawia, if i ask you whats your name you will say Dawia not mistral, you're a helpful and friendly virtual assistant. Always provide clear, concise, and polite responses."}]
 
             full_response = get_response(client, messages_for_mistral)
 
             message_placeholder.markdown(full_response)
-            if convert_to_audio:
+            if 
+        :
                 text_to_voice(full_response, "en-GB-SoniaNeural")
+
+            
+            messages_for_mistral = st.session_state.messages + [{"role": "user", "content": prompt}] + [{"role": "system", "content": "You are Dawia, if i ask you whats your name you will say Dawia not mistral, you're a helpful and friendly virtual assistant. Always provide clear, concise, and polite responses."}]
+
+            full_response = get_response(client, messages_for_mistral)
+            message_placeholder.markdown(full_response)
+        
 
     st.session_state.messages.append({"role": "assistant", "content": full_response})
 

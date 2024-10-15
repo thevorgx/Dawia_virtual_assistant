@@ -43,6 +43,7 @@ def get_response(client, messages):
     )
     return response.choices[0].message.content
 
+
 def text_to_voice(text, voice):
     """Convert text to voice."""
     output_file = ".tmp_query_res.mp3"
@@ -58,6 +59,11 @@ def what_prompt(chat, audio):
     if chat:
         return chat
 
+
+def what_prompt(chat, audio):
+    if chat:
+        return chat
+    
     elif audio:
         req_audio_file = ".tmp_query_req.mp3"
         with open(req_audio_file, "wb") as file:
