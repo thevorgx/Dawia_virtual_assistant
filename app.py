@@ -10,7 +10,6 @@ from streamlit_google_auth import Authenticate
 from hvar import page_title
 
 st.set_page_config(page_icon="./assets/img/favicon.ico")
-dawia_logo = img_to_base64("./assets/img/dawia.png")
 
 st.markdown(page_title, unsafe_allow_html=True)
 st.title("Your personal voice assistant.")
