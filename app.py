@@ -7,19 +7,12 @@ from source.voice_manager import text_to_voice, listen_and_transcribe
 from source.local_db_manager import load_chat_history, save_chat_history
 from source.tools_manager import term_in_prompt, img_to_base64, program_launcher
 from streamlit_google_auth import Authenticate
+from hvar import page_title
 
 st.set_page_config(page_icon="./assets/img/favicon.ico")
 dawia_logo = img_to_base64("./assets/img/dawia.png")
 
-st.markdown(
-    f'''
-    <div style="display: flex; align-items: center;">
-        <img src="data:image/png;base64,{dawia_logo}" width="80" style="margin-right: 10px;"/>
-        <h1 style="margin: 0;">Dawia Assist</h1>
-    </div>
-    ''',
-    unsafe_allow_html=True
-)
+st.markdown(page_title, unsafe_allow_html=True)
 st.title("Your personal voice assistant.")
 
 authenticator = Authenticate(
