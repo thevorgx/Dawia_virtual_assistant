@@ -130,8 +130,6 @@ if voice_btn:
 else:
     prompt = chat
 
-print("prompt", prompt)
-print()
 if prompt:
     with chat_container:
         if term_in_prompt(["open", "launch", "start", "execute"], prompt):
