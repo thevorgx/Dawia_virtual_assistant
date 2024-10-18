@@ -8,6 +8,7 @@ from source.local_db_manager import load_chat_history, save_chat_history
 from source.tools_manager import term_in_prompt, img_to_base64, program_launcher
 from streamlit_google_auth import Authenticate
 from hvar import page_title
+from source.dir_manager import organize_directory
 
 st.set_page_config(page_icon="./assets/img/favicon.ico")
 
@@ -150,6 +151,13 @@ if st.session_state.get('connected'):
         with chat_container:
             if term_in_prompt(["open", "launch", "start", "execute"], prompt):
                 test = program_launcher(prompt)
+                st.stop()
+            if term_in_prompt(["manage", "organize"], prompt):
+                with st.spinner("Organizing files..."):
+                    with ThreadPoolExecutor() as executor:
+                        future = executor.submit(organize_directory)
+                        result = future.result()
+                st.sidebar.success("Files organized successfully!")
                 st.stop()
             else:
                 st.session_state.messages.append({"role": "user", "content": prompt})
