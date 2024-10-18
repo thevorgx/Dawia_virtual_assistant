@@ -21,7 +21,8 @@ def img_to_base64(file_path):
     return b64_string
 
 def term_in_prompt(terms, prompt):
-    print(prompt)
+    """Check if any of the terms list is in the prompt."""
+    prompt = prompt.lower()
     for term in terms:
-        if term in prompt:
+        if term.lower() in prompt:
             return True

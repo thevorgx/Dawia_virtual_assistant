@@ -9,6 +9,7 @@ from source.tools_manager import term_in_prompt, img_to_base64, program_launcher
 from streamlit_google_auth import Authenticate
 from hvar import page_title
 from source.dir_manager import organize_directory
+from source.search_engine_manager import search_google, search_youtube
 
 st.set_page_config(page_icon="./assets/img/favicon.ico")
 
@@ -151,6 +152,12 @@ if st.session_state.get('connected'):
         with chat_container:
             if term_in_prompt(["open", "launch", "start", "execute"], prompt):
                 test = program_launcher(prompt)
+                st.stop()
+            if term_in_prompt(["search for"], prompt) and "youtube" not in prompt.lower():
+                test2 = search_google(prompt)
+                st.stop()
+            if term_in_prompt(["YouTube"], prompt):
+                search_youtube(prompt)
                 st.stop()
             if term_in_prompt(["manage", "organize"], prompt):
                 with st.spinner("Organizing files..."):
