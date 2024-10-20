@@ -1,5 +1,6 @@
 source/api_key
 source/__pycache__/
+__pycache__
 /venv_name
 .tmp_query_req.mp3
 chat_history.pkl

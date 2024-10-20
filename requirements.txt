@@ -1,6 +1,9 @@
 streamlit
+streamlit-image-select
 mistralai
 speechrecognition
 edge-tts
 playsound
-audio_recorder_streamlit
+streamlit-google-auth
+yeelight
+wxPython
