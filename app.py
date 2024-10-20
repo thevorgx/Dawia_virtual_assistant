@@ -10,6 +10,7 @@ from streamlit_google_auth import Authenticate
 from hvar import page_title
 from source.dir_manager import organize_directory
 from source.search_engine_manager import search_google, search_youtube
+from source.device_manager import toggle_light
 
 st.set_page_config(page_icon="./assets/img/favicon.ico")
 
@@ -165,6 +166,9 @@ if st.session_state.get('connected'):
                         future = executor.submit(organize_directory)
                         result = future.result()
                 st.sidebar.success("Files organized successfully!")
+                st.stop()
+            if term_in_prompt(["turn on", "turn off"], prompt):
+                toggle_light()
                 st.stop()
             else:
                 st.session_state.messages.append({"role": "user", "content": prompt})

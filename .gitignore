@@ -5,3 +5,4 @@ source/__pycache__/
 chat_history.pkl
 config.json
 google_credentials.json
+source/device_client
