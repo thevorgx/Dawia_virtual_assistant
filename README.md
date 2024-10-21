@@ -1,10 +1,10 @@
 # Dawia Assistant
 
-Dawia is a personal assistant application that integrates with Mistral's API to generate responses and can be controlled via text and voice prompts.
+Dawia is a personal assistant application that integrates with Mistral's API to generate responses and can be controlled via text and speech prompts.
 
 ## Current Features
 
-- **Voice Assistant**: Interact with Dawia through text or voice prompts.
+- **Voice Assistant**: Interact with Dawia through text or speech prompts.
 - **API Model Selection**: Choose from different Mistral models to chape the assistant's response.
 - **Voice Configuration**: Customize Dawia's voice output using different voice options.
 - **Google Authentication**: Login using your Google account to access Dawia.
@@ -23,7 +23,7 @@ Dawia is a personal assistant application that integrates with Mistral's API to 
 ├── source/                         # -> Main back end source code files
 │   ├── config_manager.py           # -> Loads and saves configurations
 │   ├── response_manager.py         # -> Handles Mistral AI API interactions, and response streaming 
-│   ├── voice_manager.py            # -> Handles voice prompting, tts(text to speech), and vtt(voice to text)
+│   ├── voice_manager.py            # -> Handles speech prompting, tts(text to speech), and stt(speech to text)
 │   ├── local_db_manager.py         # -> Saves and loads chat history()
 │   ├── tools_manager.py            # -> Utility functions (image processing, launching apps, etc.)
 │   ├── dir_manager.py              # -> Manages file organization feature
@@ -34,6 +34,8 @@ Dawia is a personal assistant application that integrates with Mistral's API to 
 ├── config.json                     # -> Configuration file storing default user values
 └── app.py                          # -> Main entry point for Dawia's web application
 ```
+## Project Architecture
+![architecture](https://github.com/thevorgx/projects_assets/blob/master/Dawia_readme_assets/diag.webp)
 
 ## Prerequisites
 
@@ -122,7 +124,7 @@ Once you have the app running:
 
 1. **Login**: Use your Google account to authenticate.
 2. **Configure API Key**: Paste your Mistral API key in the provided field in the sidebar.
-3. **Interact**: You can either type messages or use the microphone button to send voice commands.
+3. **Interact**: You can either type messages or use the microphone button to send speech commands.
 4. **Configure settings**: In the sidebar, customize Dawia's settings, such as API model, voice options, and your user avatar.
 
 ## Contribution
