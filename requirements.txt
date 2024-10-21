@@ -1,9 +1,9 @@
 streamlit
 streamlit-image-select
+streamlit-google-auth
 mistralai
 speechrecognition
 edge-tts
 playsound
-streamlit-google-auth
 yeelight
 wxPython

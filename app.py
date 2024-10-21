@@ -12,7 +12,7 @@ from source.dir_manager import organize_directory
 from source.search_engine_manager import search_google, search_youtube
 from source.device_manager import toggle_light
 
-st.set_page_config(page_icon="./assets/img/favicon.ico")
+st.set_page_config(page_title="Dawia Assistant", page_icon="./assets/img/favicon.ico")
 
 st.markdown(page_title, unsafe_allow_html=True)
 st.title("Your personal voice assistant.")
@@ -31,7 +31,6 @@ if st.session_state.get('connected'):
 #----------------- Constants
     DAWIA_AVATAR = "./assets/img/favicon.ico"
     restriction2 = "? answer in one short sentence"
-    #api_key = open("api_key", "r").read()
 
     config = load_config()
 
