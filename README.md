@@ -1,6 +1,10 @@
 # Dawia Assistant
 
-Dawia is a personal assistant application that integrates with Mistral's API to generate responses and can be controlled via text and speech prompts.
+Dawia is a personal assistant that integrates with Mistral's API to generate responses, it can also do various tasks like controlling IoT devices, launching applications, and organizing files. Dawia can be interacted with through text or speech prompts.
+
+![demo_gif](https://github.com/thevorgx/projects_assets/blob/master/Dawia_readme_assets/demo.gif)
+
+[watch Dawia's demo video here](https://www.youtube.com/watch?v=DV3MVqj8Ig4)
 
 ## Current Features
 
@@ -19,12 +23,14 @@ Dawia is a personal assistant application that integrates with Mistral's API to 
 ```bash
 ├── assets/                         # -> Contains images and icons for Dawia's UI
 │   ├── img   
-│   ├── user_img             
+│   ├── user_img
+├── chat_db/                        # -> Contains user chat history management file
+│   ├── local_db_manager.py         # -> Saves and loads chat history()
+├── config_utility/                 # -> Contains configuration utility file
+│   ├── config_manager.py           # -> Loads and saves configurations            
 ├── source/                         # -> Main back end source code files
-│   ├── config_manager.py           # -> Loads and saves configurations
 │   ├── response_manager.py         # -> Handles Mistral AI API interactions, and response streaming 
 │   ├── voice_manager.py            # -> Handles speech prompting, tts(text to speech), and stt(speech to text)
-│   ├── local_db_manager.py         # -> Saves and loads chat history()
 │   ├── tools_manager.py            # -> Utility functions (image processing, launching apps, etc.)
 │   ├── dir_manager.py              # -> Manages file organization feature
 │   ├── search_engine_manager.py    # -> Search Google or YouTube usng user prompt
