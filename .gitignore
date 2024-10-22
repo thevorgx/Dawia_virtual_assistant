@@ -2,7 +2,7 @@ source/api_key
 source/__pycache__/
 chat_db__pycache__/
 __pycache__
-/venv_name
+/venv
 .tmp_query_req.mp3
 chat_history.pkl
 config.json

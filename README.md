@@ -58,6 +58,12 @@ To install the required dependencies, run:
 pip install -r requirements.txt
 ```
 
+If you encounter any errors while downloading `playsound` from the `requirements.txt` file, you can manually install it using the following command:
+
+```bash
+pip install playsound==1.2.2
+```
+
 ### Libraries
 - `mistralai`: For interacting with the Mistral API.
 - `edge_tts`: For text-to-speech conversion.
