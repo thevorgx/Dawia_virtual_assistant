@@ -1,10 +1,10 @@
 import streamlit as st
 from concurrent.futures import ThreadPoolExecutor
 from streamlit_image_select import image_select
-from source.config_manager import load_config, save_config
+from config_utility.config_manager import load_config, save_config
 from source.response_manager import init_mistral, get_response, stream_response
 from source.voice_manager import text_to_voice, listen_and_transcribe
-from source.local_db_manager import load_chat_history, save_chat_history
+from chat_db.local_db_manager import load_chat_history, save_chat_history
 from source.tools_manager import term_in_prompt, img_to_base64, program_launcher
 from streamlit_google_auth import Authenticate
 from hvar import page_title
@@ -147,7 +147,7 @@ if st.session_state.get('connected'):
     else:
         prompt = chat
 
-    print("prompt", prompt)
+    #print("prompt", prompt)
     if prompt:
         with chat_container:
             if term_in_prompt(["open", "launch", "start", "execute"], prompt):
@@ -177,7 +177,7 @@ if st.session_state.get('connected'):
                 with st.chat_message("system", avatar=DAWIA_AVATAR):
                     message_placeholder = st.empty()
 
-                    messages_for_mistral = st.session_state.messages + [{"role": "user", "content": prompt + restriction2}] + [{"role": "system", "content": "If asked about your name your name is Dawia never say mistral as your name, you're a personal assistant."}]
+                    messages_for_mistral = st.session_state.messages + [{"role": "user", "content": prompt + restriction2}] + [{"role": "system", "content": "your name is Dawia, you're a personal assistant."}]
 
                     full_response = get_response(client, messages_for_mistral)
                     with ThreadPoolExecutor() as executor:
