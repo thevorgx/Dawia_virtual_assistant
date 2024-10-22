@@ -12,7 +12,7 @@ Dawia is a personal assistant application that integrates with Mistral's API to 
 - **Program LauncherControl**: Open or launch applications.
 - **Device Control**: Control IoT devices (like lights).
 - **File Organization**: Automatically organize files in directories with a simple command.
-- **Chat History**: Save and load chat history for user-specific interactions.
+- **Chat History**: Save load, delete chat history for user-specific interactions.
 
 ## Project Structure
 
@@ -35,6 +35,7 @@ Dawia is a personal assistant application that integrates with Mistral's API to 
 └── app.py                          # -> Main entry point for Dawia's web application
 ```
 ## Project Architecture
+
 ![architecture](https://github.com/thevorgx/projects_assets/blob/master/Dawia_readme_assets/diag.webp)
 
 ## Prerequisites
