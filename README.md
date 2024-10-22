@@ -22,19 +22,21 @@ Dawia is a personal assistant that integrates with Mistral's API to generate res
 
 ```bash
 ├── assets/                         # -> Contains images and icons for Dawia's UI
-│   ├── img   
+│   ├── img
 │   ├── user_img
 ├── chat_db/                        # -> Contains user chat history management file
 │   ├── local_db_manager.py         # -> Saves and loads chat history()
 ├── config_utility/                 # -> Contains configuration utility file
-│   ├── config_manager.py           # -> Loads and saves configurations            
+│   ├── config_manager.py           # -> Loads and saves configurations
 ├── source/                         # -> Main back end source code files
-│   ├── response_manager.py         # -> Handles Mistral AI API interactions, and response streaming 
+│   ├── response_manager.py         # -> Handles Mistral AI API interactions, and response streaming
 │   ├── voice_manager.py            # -> Handles speech prompting, tts(text to speech), and stt(speech to text)
 │   ├── tools_manager.py            # -> Utility functions (image processing, launching apps, etc.)
 │   ├── dir_manager.py              # -> Manages file organization feature
 │   ├── search_engine_manager.py    # -> Search Google or YouTube usng user prompt
 │   └── device_manager.py           # -> Handles device management like toggling lights
+├── tests/                          # -> Contains test files
+│   ├── test_response_manager.py    # -> Verifying Mistral client init and response handling
 ├── google_credentials.json         # -> Google authentication credentials for login feature
 ├── README.md                       # -> Project documentation
 ├── config.json                     # -> Configuration file storing default user values

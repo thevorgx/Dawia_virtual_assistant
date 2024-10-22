@@ -8,3 +8,4 @@ chat_history.pkl
 config.json
 google_credentials.json
 source/device_client
+.tmp_query_res.mp3
