@@ -22,11 +22,11 @@ def listen_and_transcribe():
     """Listen to microphone input and transcribe speech to text."""
     r = sr.Recognizer()
     with sr.Microphone() as source:
-        st.info("Listening...")
-        audio = r.listen(source)
+        with st.spinner("Listening..."):
+            audio = r.listen(source)
         try:
             text = r.recognize_google(audio)
-            st.success(f"Transcribed Text: {text}")
+            #st.success(f"Transcribed Text: {text}") just for debugging
             return text
         except sr.UnknownValueError:
             st.error("Sorry, I could not understand what you said.")

@@ -3,7 +3,7 @@ from concurrent.futures import ThreadPoolExecutor
 from streamlit_image_select import image_select
 from config_utility.config_manager import load_config, save_config
 from source.response_manager import init_mistral, get_response, stream_response
-from source.voice_manager import text_to_voice, listen_and_transcribe
+from source.voice_manager import text_to_voice, listen_and_transcribe, dawia_say
 from chat_db.local_db_manager import load_chat_history, save_chat_history
 from source.tools_manager import term_in_prompt, img_to_base64, program_launcher
 from streamlit_google_auth import Authenticate
@@ -30,7 +30,7 @@ if st.session_state.get('connected'):
 
 #----------------- Constants
     DAWIA_AVATAR = "./assets/img/favicon.ico"
-    restriction2 = "? answer in one short sentence"
+    limited_answer = "? answer in one short sentence"
 
     config = load_config()
 
@@ -147,28 +147,45 @@ if st.session_state.get('connected'):
     else:
         prompt = chat
 
-    #print("prompt", prompt)
     if prompt:
         with chat_container:
-            if term_in_prompt(["open", "launch", "start", "execute"], prompt):
-                test = program_launcher(prompt)
-                st.stop()
-            if term_in_prompt(["search for"], prompt) and "youtube" not in prompt.lower():
-                test2 = search_google(prompt)
-                st.stop()
-            if term_in_prompt(["YouTube"], prompt):
-                search_youtube(prompt)
-                st.stop()
-            if term_in_prompt(["manage", "organize"], prompt):
-                with st.spinner("Organizing files..."):
+            if term_in_prompt(["dawia", "Dawia", "assistant", "Dahlia", "Daria", "Dario", "volume", "dario" "Assistant"], prompt):
+                if term_in_prompt(["open", "launch", "start", "execute"], prompt):
+                    program_launcher(prompt)
+                    st.stop()
+
+                elif term_in_prompt(["search for"], prompt) and "youtube" not in prompt.lower():
+                    search_google(prompt)
+                    st.stop()
+
+                elif term_in_prompt(["YouTube"], prompt):
+                    search_youtube(prompt)
+                    st.stop()
+
+                elif term_in_prompt(["manage", "organize"], prompt):
+                    with st.spinner("Organizing files..."):
+                        with ThreadPoolExecutor() as executor:
+                            executor.submit(organize_directory)
+                            executor.shutdown()
+                    st.sidebar.success("Files organized successfully!")
+                    st.stop()
+
+                elif term_in_prompt(["turn on", "turn off"], prompt):
+                    on_off_light(prompt)
+                    st.stop()
+
+                else:
+                    text = "this feature is currently not available"
                     with ThreadPoolExecutor() as executor:
-                        future = executor.submit(organize_directory)
-                        result = future.result()
-                st.sidebar.success("Files organized successfully!")
-                st.stop()
-            if term_in_prompt(["turn on", "turn off"], prompt):
-                on_off_light(prompt)
-                st.stop()
+                        if st.session_state["convert_to_audio"]:
+                            executor.submit(text_to_voice, text, st.session_state["voice_dawia"])
+                            st.error(text)
+                            st.stop()
+
+                        else:
+                            st.error(text)
+                            st.stop()   
+       
             else:
                 st.session_state.messages.append({"role": "user", "content": prompt})
                 with st.chat_message("user", avatar=st.session_state["user_logo"]):
@@ -177,7 +194,7 @@ if st.session_state.get('connected'):
                 with st.chat_message("system", avatar=DAWIA_AVATAR):
                     message_placeholder = st.empty()
 
-                    messages_for_mistral = st.session_state.messages + [{"role": "user", "content": prompt + restriction2}] + [{"role": "system", "content": "your name is Dawia, you're a personal assistant."}]
+                    messages_for_mistral = st.session_state.messages + [{"role": "user", "content": prompt + limited_answer}] + [{"role": "system", "content": "your name is Dawia, you're a personal assistant."}]
 
                     full_response = get_response(client, messages_for_mistral)
                     with ThreadPoolExecutor() as executor:
