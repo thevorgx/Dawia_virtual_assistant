@@ -35,8 +35,6 @@ Dawia is a personal assistant that integrates with Mistral's API to generate res
 │   ├── dir_manager.py              # -> Manages file organization feature
 │   ├── search_engine_manager.py    # -> Search Google or YouTube usng user prompt
 │   └── device_manager.py           # -> Handles device management like toggling lights
-├── tests/                          # -> Contains test files
-│   ├── test_response_manager.py    # -> Verifying Mistral client init and response handling
 ├── google_credentials.json         # -> Google authentication credentials for login feature
 ├── README.md                       # -> Project documentation
 ├── config.json                     # -> Configuration file storing default user values
@@ -58,12 +56,6 @@ To install the required dependencies, run:
 
 ```bash
 pip install -r requirements.txt
-```
-
-If you encounter any errors while downloading `playsound` from the `requirements.txt` file, you can manually install it using the following command:
-
-```bash
-pip install playsound==1.2.2
 ```
 
 ### Libraries
@@ -99,7 +91,7 @@ pip install playsound==1.2.2
 
    ```bash
    git clone https://github.com/thevorgx/Dawia_virtual_assistant
-   cd dawia-assistant
+   cd Dawia_virtual_assistant
    ```
 
 2. **Set up virtual environment**:

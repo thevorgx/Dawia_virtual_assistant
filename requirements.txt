@@ -4,6 +4,6 @@ streamlit-google-auth
 mistralai
 speechrecognition
 edge-tts
-playsound
+playsound==1.2.2
 yeelight
 wxPython
