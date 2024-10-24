@@ -1,0 +1,85 @@
+.stMain {
+    background-color: #0E0A1B;
+}
+
+.stAppHeader{
+    background-color: #0E0A1B;
+}
+
+
+/* toggle sound btn */
+.st-cg {
+    background-color: #60b4ff;
+}
+
+
+/* login btn */
+.st-emotion-cache-l9t3kt {
+    background-color: #31363F;
+    border: 2px solid #ffffff;
+}
+
+.st-emotion-cache-ogrf2x:hover {
+    border-color: #ffffff;
+    color: #60b4ff;
+}
+
+.st-emotion-cache-ogrf2x:active {
+    color: #ffffff;
+    border-color: #ffffff;
+    background-color: #60b4ff;
+}
+
+
+/* logout & clear chat log btn */
+.st-emotion-cache-lpgk4i {
+    background-color: #31363F;
+    border: 2px solid #ffffff;
+}
+
+.st-emotion-cache-lpgk4i:hover {
+    border-color: #ffffff;
+    color: #60b4ff;
+}
+
+.st-emotion-cache-lpgk4i:active {
+    color: #ffffff;
+    border-color: #ffffff;
+    background-color: #60b4ff;
+}
+
+.st-emotion-cache-lpgk4i:focus:not(:active) {
+    color: #ffffff;
+    border-color: #ffffff;
+    background-color: #60b4ff;
+}
+
+
+/* speech btn */
+.st-emotion-cache-15hul6a {
+    background-color: #31363F;
+    border: 0px solid
+}
+
+.st-emotion-cache-15hul6a:hover {
+    background-color: #31363F;
+    border: 1px solid #ffffff;
+}
+
+.st-emotion-cache-15hul6a:active {
+    color: #ffffff;
+    border-color: #ffffff;
+    background-color: #60b4ff;
+}
+
+
+/* chat text input */
+.st-ef {
+    background-color: #31363F;
+    border: 0px solid
+}
+
+.st-ef:hover {
+    background-color: #31363F;
+    border: 1px solid #ffffff;
+}

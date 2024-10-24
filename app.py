@@ -14,6 +14,9 @@ from source.device_manager import on_off_light
 
 st.set_page_config(page_title="Dawia Assistant", page_icon="./assets/img/favicon.ico")
 
+with open("style.css") as css:
+    st.markdown(f'<style>{css.read()}</style>', unsafe_allow_html=True)
+
 st.markdown(page_title, unsafe_allow_html=True)
 st.title("Your personal voice assistant.")
 
@@ -52,7 +55,7 @@ if st.session_state.get('connected'):
     with st.sidebar:
         if st.button('Log out'):
             authenticator.logout()
-        st.title("Configure your :red[API key]")
+        st.title("Configure your :blue[API key]")
         api_key = st.text_input("Please paste your Mistral API key here:", placeholder="API_KEY", type="password")
 
         if st.button("Clear chat log"):
@@ -184,8 +187,8 @@ if st.session_state.get('connected'):
 
                         else:
                             st.error(text)
-                            st.stop()   
-       
+                            st.stop()
+
             else:
                 st.session_state.messages.append({"role": "user", "content": prompt})
                 with st.chat_message("user", avatar=st.session_state["user_logo"]):
