@@ -153,12 +153,12 @@ if st.session_state.get('connected'):
 
     if prompt:
         with chat_container:
-            if term_in_prompt(["dawia", "Dawia", "assistant", "Dahlia", "Daria", "Dario", "volume", "dario" "Assistant"], prompt):
+            if term_in_prompt(["dawia", "Dawia", "please", "assistant", "Dahlia", "Daria", "Dario", "volume", "dario" "Assistant"], prompt):
                 if term_in_prompt(["open", "launch", "start", "execute"], prompt):
                     program_launcher(prompt)
                     st.stop()
 
-                elif term_in_prompt(["search for"], prompt) and "youtube" not in prompt.lower():
+                elif term_in_prompt(["search for"], prompt) and "youtube" not in prompt.lower() and "wikipedia" not in prompt.lower():
                     search_google(prompt)
                     st.stop()
 
