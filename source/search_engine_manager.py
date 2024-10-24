@@ -21,3 +21,13 @@ def search_youtube(prompt):
         st.success(f"Searching for {to_search} on YouTube...")
     text = f"Searching for {to_search} on YouTube..."
     dawia_say(text)
+
+def search_wikipedia(prompt):
+    """search wikipedia for a query"""
+    to_search = prompt.split("for")[-1].strip()
+    url = f"https://en.wikipedia.org/wiki/{to_search}"
+    webbrowser.get().open(url)
+    with st.sidebar:
+        st.success(f"Searching Wikipedia for {to_search}...")
+    text = f"Searching Wikipedia for {to_search}..."
+    dawia_say(text)

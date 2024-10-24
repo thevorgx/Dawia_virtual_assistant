@@ -9,7 +9,7 @@ from source.tools_manager import term_in_prompt, img_to_base64, program_launcher
 from streamlit_google_auth import Authenticate
 from hvar import page_title, github_link, get_key
 from source.dir_manager import organize_directory
-from source.search_engine_manager import search_google, search_youtube
+from source.search_engine_manager import search_google, search_youtube, search_wikipedia
 from source.device_manager import on_off_light
 
 st.set_page_config(page_title="Dawia Assistant", page_icon="./assets/img/favicon.ico")
@@ -164,6 +164,10 @@ if st.session_state.get('connected'):
 
                 elif term_in_prompt(["YouTube"], prompt):
                     search_youtube(prompt)
+                    st.stop()
+
+                elif term_in_prompt(["Wikipedia"], prompt):
+                    search_wikipedia(prompt)
                     st.stop()
 
                 elif term_in_prompt(["manage", "organize"], prompt):
