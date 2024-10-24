@@ -18,3 +18,5 @@ github_link = f'''
         </span>
     </div>
 '''
+
+get_key = f"""Don\'t have an API key? <a href="https://www.youtube.com/watch?v=PMVXDzXd-2c" target="_blank" style="color:#60b4ff;">click here</a>"""

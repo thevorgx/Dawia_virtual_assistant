@@ -7,7 +7,7 @@ from source.voice_manager import text_to_voice, listen_and_transcribe, dawia_say
 from chat_db.local_db_manager import load_chat_history, save_chat_history
 from source.tools_manager import term_in_prompt, img_to_base64, program_launcher
 from streamlit_google_auth import Authenticate
-from hvar import page_title, github_link
+from hvar import page_title, github_link, get_key
 from source.dir_manager import organize_directory
 from source.search_engine_manager import search_google, search_youtube
 from source.device_manager import on_off_light
@@ -57,6 +57,7 @@ if st.session_state.get('connected'):
             authenticator.logout()
         st.title("Configure your :blue[API key]")
         api_key = st.text_input("Please paste your Mistral API key here:", placeholder="API_KEY", type="password")
+        st.markdown(get_key, unsafe_allow_html=True)
 
         if st.button("Clear chat log"):
             st.session_state.messages = []
