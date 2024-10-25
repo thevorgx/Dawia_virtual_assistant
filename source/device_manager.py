@@ -1,3 +1,6 @@
+"""This module contains the functions to manage the device."""
+
+
 from yeelight import Bulb
 from source.tools_manager import term_in_prompt
 import streamlit as st

@@ -1,3 +1,6 @@
+"""Organize files in a directory by type."""
+
+
 import os
 import shutil
 from pathlib import Path

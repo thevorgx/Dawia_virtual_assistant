@@ -1,3 +1,5 @@
+"""This module provides functions to load and save the config from a JSON file."""
+
 import json
 import os
 

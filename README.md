@@ -9,10 +9,10 @@ Dawia is a personal assistant that integrates with Mistral's API to generate res
 ## Current Features
 
 - **Voice Assistant**: Interact with Dawia through text or speech prompts.
-- **API Model Selection**: Choose from different Mistral models to chape the assistant's response.
+- **API Model Selection**: Choose from different Mistral models to chape the assistant's response.(all free)
 - **Voice Configuration**: Customize Dawia's voice output using different voice options.
 - **Google Authentication**: Login using your Google account to access Dawia.
-- **Search Engine Integration**: Search Google or YouTube directly via commands.
+- **Search Engine Integration**: Search Google, wikipedia, or YouTube directly via commands.
 - **Program LauncherControl**: Open or launch applications.
 - **Device Control**: Control IoT devices (like lights).
 - **File Organization**: Automatically organize files in directories with a simple command.
@@ -29,16 +29,21 @@ Dawia is a personal assistant that integrates with Mistral's API to generate res
 ├── config_utility/                 # -> Contains configuration utility file
 │   ├── config_manager.py           # -> Loads and saves configurations
 ├── source/                         # -> Main back end source code files
+│   ├── device_client               # -> Contains device ip adress (you should add this file here even if you are not controlling any device, it can be empty)
 │   ├── response_manager.py         # -> Handles Mistral AI API interactions, and response streaming
 │   ├── voice_manager.py            # -> Handles speech prompting, tts(text to speech), and stt(speech to text)
 │   ├── tools_manager.py            # -> Utility functions (image processing, launching apps, etc.)
 │   ├── dir_manager.py              # -> Manages file organization feature
 │   ├── search_engine_manager.py    # -> Search Google or YouTube usng user prompt
 │   └── device_manager.py           # -> Handles device management like toggling lights
+├── app.py                          # -> Dawia's main app entry point   
 ├── google_credentials.json         # -> Google authentication credentials for login feature
+├── hvar.py                         # -> Contains html/css injection code for streamlit
 ├── README.md                       # -> Project documentation
-├── config.json                     # -> Configuration file storing default user values
-└── app.py                          # -> Main entry point for Dawia's web application
+├── config.json                     # -> Configuration file storing default user values (will be generated if not present)
+├── requirements.txt                # -> Contains all the required libraries for the project
+└── style.css                       # -> Contains css code
+
 ```
 ## Project Architecture
 
@@ -132,6 +137,7 @@ Once you have the app running:
 1. **Login**: Use your Google account to authenticate.
 2. **Configure API Key**: Paste your Mistral API key in the provided field in the sidebar.
 3. **Interact**: You can either type messages or use the microphone button to send speech commands.
+if you want to trigger Dawia features beyond the chat, your prompt should contain "Please" Dawia reserves her features for the polite user!
 4. **Configure settings**: In the sidebar, customize Dawia's settings, such as API model, voice options, and your user avatar.
 
 ## Contribution

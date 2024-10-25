@@ -1,3 +1,5 @@
+"""This module contains tools for the main program."""
+
 import base64
 import subprocess
 import streamlit as st

@@ -1,3 +1,5 @@
+"""This file contains the HTML/css variables used in the app.py file for streamlit."""
+
 from source.tools_manager import img_to_base64
 
 dawia_logo = img_to_base64("./assets/img/dawia.png")

@@ -1,3 +1,5 @@
+"""Search Engine Manager Module(wiki, youtube, google)"""
+
 import webbrowser
 import streamlit as st
 from source.voice_manager import dawia_say

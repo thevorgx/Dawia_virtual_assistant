@@ -1,3 +1,5 @@
+"""This module contains functions for voice management(tts, stt)."""
+
 import edge_tts
 from playsound import playsound
 import streamlit as st

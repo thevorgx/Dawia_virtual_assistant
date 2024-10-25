@@ -1,3 +1,5 @@
+"""Project entry point for the Dawia Assistant application."""
+
 import streamlit as st
 from concurrent.futures import ThreadPoolExecutor
 from streamlit_image_select import image_select

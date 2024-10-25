@@ -1,7 +1,6 @@
 streamlit
 streamlit-image-select
 streamlit-google-auth
-streamlit-extras
 mistralai
 speechrecognition
 edge-tts

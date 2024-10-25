@@ -1,3 +1,6 @@
+"""This module contains functions to interact with the Mistral API."""
+
+
 from time import sleep
 from mistralai import Mistral
 import streamlit as st

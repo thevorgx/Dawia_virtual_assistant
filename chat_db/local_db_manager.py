@@ -1,3 +1,5 @@
+"""This module provides functions to manage the local chat history database."""
+
 import pickle
 import os
 
